@@ -1,0 +1,16 @@
+
+.nav {
+  grid-area: n;
+  background-color: aqua;
+  padding: 20px;
+}
+
+.item a{
+  color: white;
+  text-decoration: none;
+}
+
+/* Подсветка активной ссылки */
+.item a[class="active"]{
+  color: gold;
+}
