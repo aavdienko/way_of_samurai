@@ -2,10 +2,9 @@ import Preloader from '../../Common/Preloader/Preloader';
 import classes from './ProfileInfo.module.css';
 
 const ProfileInfo = (props) => {
-  // if (!props.profile) {
-  //   return <Preloader/>
-  // }
-  // debugger
+  if (!props.profile) {
+    return <Preloader/>
+  }
 
   return (
     <div>
@@ -13,7 +12,7 @@ const ProfileInfo = (props) => {
         <img src="https://i.ytimg.com/vi/kpf5BqZeES8/maxresdefault.jpg"></img>
       </div>
       <div className={classes.descriptionBlock}>
-        {/* <img src={props.profile.photos.large}></img> */}
+        <img src={props.profile.photos.large}></img>
         ava + description
       </div>
     </div>

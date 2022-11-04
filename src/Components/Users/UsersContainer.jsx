@@ -57,7 +57,7 @@ class UsersContainer extends React.Component {
   }
 }
 
-let MapStateToProps = (state) => {
+let mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
@@ -90,6 +90,6 @@ let MapStateToProps = (state) => {
 //   };
 // }; Заменили MDTP на передачу самих каллбэков в Usercontainer через коннект и пропс.
 
-export default connect(MapStateToProps, {
+export default connect(mapStateToProps, {
   follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFetching
   })(UsersContainer);

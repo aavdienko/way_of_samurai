@@ -10,8 +10,7 @@ import Music from './Components/Music/Music';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
-
-
+import ProfileContainer from './Components/Profile/ProfileContainer';
 
 const App = (props) => {
   // Пернесли в index.js и прокинули через props
@@ -28,16 +27,8 @@ const App = (props) => {
         <Navbar />
         <div className="app-wraper-content">
           <Routes>
-            <Route
-              path="/profile/*"
-              element={
-                <Profile
-                // profilePage={props.state.profilePage}
-                // dispatch={props.dispatch}
-                // store={props.store}
-                />
-              }
-            />
+            <Route path="/profile/:userId" element={<ProfileContainer />} />
+            <Route path="/profile/" element={<ProfileContainer />} />
             <Route
               path="/dialogs/*"
               element={
