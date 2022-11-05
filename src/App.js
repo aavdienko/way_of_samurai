@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
+import HeaderContainer from './Components/Header/HeaderContainer';
 
 const App = (props) => {
   // Пернесли в index.js и прокинули через props
@@ -23,7 +24,7 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <div className="app-wraper">
-        <Header />
+        <HeaderContainer />
         <Navbar />
         <div className="app-wraper-content">
           <Routes>
