@@ -11,38 +11,33 @@ import Users from './Users';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Preloader from '../Common/Preloader/Preloader';
+import { usersAPI } from '../../API/api.js';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.setToggleIsFetching(true)
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.setToggleIsFetching(false)
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
-      });
+    this.props.setToggleIsFetching(true);
+
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+      this.props.setToggleIsFetching(false);
+      this.props.setUsers(data.items);
+      this.props.setTotalUsersCount(data.totalCount);
+    });
   }
 
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
-    this.props.setToggleIsFetching(true)
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.setToggleIsFetching(false)
-        this.props.setUsers(response.data.items);
-      });
+    this.props.setToggleIsFetching(true);
+
+    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
+      this.props.setToggleIsFetching(false);
+      this.props.setUsers(data.items);
+    });
   };
 
   render() {
     return (
       <>
-      {this.props.isFetching ? <Preloader/> : null}
+        {this.props.isFetching ? <Preloader /> : null}
         <Users
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
@@ -91,5 +86,10 @@ let mapStateToProps = (state) => {
 // }; Заменили MDTP на передачу самих каллбэков в Usercontainer через коннект и пропс.
 
 export default connect(mapStateToProps, {
-  follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFetching
-  })(UsersContainer);
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  setToggleIsFetching,
+})(UsersContainer);
