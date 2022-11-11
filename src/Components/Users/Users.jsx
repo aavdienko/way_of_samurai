@@ -4,6 +4,7 @@ import userPhoto from '../../Assets//User.png';
 import { NavLink } from 'react-router-dom';
 import { useStore } from 'react-redux';
 import axios from 'axios';
+import { usersAPI } from '../../API/api';
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -44,44 +45,23 @@ let Users = (props) => {
             </div>
             <div>
               {users.followed ? (
-                <button disabled={props.followingInProgress.some(id => id === users.id)}
+                <button
+                  disabled={props.followingInProgress.some(
+                    (id) => id === users.id
+                  )}
                   onClick={() => {
-                    props.setToggleFollowingProgress(true, users.id)
-                    axios
-                      .delete(
-                        `https://social-network.samuraijs.com/api/1.0/follow/${users.id}`,
-                        {
-                          withCredentials: true,
-                        }
-                      )
-                      .then(response => {
-                        if (response.data.resultCode === 0) {
-                          props.unfollow(users.id);
-                        }
-                        props.setToggleFollowingProgress(false, users.id)
-                      });
+                    props.unfollow(users.id);
                   }}
                 >
                   Unfollow
                 </button>
               ) : (
-                <button disabled={props.followingInProgress.some(id => id === users.id)}
+                <button
+                  disabled={props.followingInProgress.some(
+                    (id) => id === users.id
+                  )}
                   onClick={() => {
-                    props.setToggleFollowingProgress(true, users.id)
-                    axios
-                      .post(
-                        `https://social-network.samuraijs.com/api/1.0/follow/${users.id}`,
-                        {},
-                        {
-                          withCredentials: true,
-                        }
-                      )
-                      .then((response) => {
-                        if (response.data.resultCode === 0) {
-                          props.follow(users.id);
-                        }
-                        props.setToggleFollowingProgress(false, users.id)
-                      });
+                    props.follow(true, users.id);
                   }}
                 >
                   Follow
