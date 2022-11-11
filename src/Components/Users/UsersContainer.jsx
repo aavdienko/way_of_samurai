@@ -8,6 +8,8 @@ import {
   setToggleIsFetching,
   setToggleFollowingProgress,
   getUsers,
+  followThunk,
+  unfollowThunk
 } from '../../Redux/users-reducers';
 import Users from './Users';
 import { connect } from 'react-redux';
@@ -39,6 +41,8 @@ class UsersContainer extends React.Component {
           unfollow={this.props.unfollow}
           setToggleFollowingProgress={this.props.setToggleFollowingProgress}
           followingInProgress={this.props.followingInProgress}
+          followThunk={this.props.followThunk}
+          unfollowThunk={this.props.unfollowThunk}
         />
       </>
     );
@@ -85,4 +89,6 @@ export default connect(mapStateToProps, {
   setCurrentPage,
   setToggleFollowingProgress,
   getUsers,
+  followThunk,
+  unfollowThunk,
 })(UsersContainer);

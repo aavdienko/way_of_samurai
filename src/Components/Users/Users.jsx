@@ -47,29 +47,14 @@ let Users = (props) => {
               {users.followed ? (
                 <button disabled={props.followingInProgress.some(id => id === users.id)}
                   onClick={() => {
-                    props.setToggleFollowingProgress(true, users.id)
-                    usersAPI.unfollow(users.id)
-                      .then(response => {
-                        if (response.data.resultCode === 0) {
-                          props.unfollow(users.id);
-                        }
-                        props.setToggleFollowingProgress(false, users.id)
-                      });
-                  }}
+                    props.unfollowThunk(users.id)}}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button disabled={props.followingInProgress.some(id => id === users.id)}
                   onClick={() => {
-                    props.setToggleFollowingProgress(true, users.id)
-                    usersAPI.follow(users.id)
-                      .then((response) => {
-                        if (response.data.resultCode === 0) {
-                          props.follow(users.id);
-                        }
-                        props.setToggleFollowingProgress(false, users.id)
-                      });
+                    props.followThunk(users.id)
                   }}
                 >
                   Follow

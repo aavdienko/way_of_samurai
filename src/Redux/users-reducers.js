@@ -149,32 +149,30 @@ export const getUsers = (currentPage,pageSize) => {
 };
 
 
-export const followThunk = (currentPage,pageSize) => {
+export const followThunk = (userID) => {
 
   return (dispatch) => {
-    dispatch(setToggleIsFetching(true));
-
-    usersAPI
-      .getUsers(currentPage, pageSize)
-      .then((data) => {
-        dispatch(setToggleIsFetching(false));
-        dispatch(setUsers(data.items));
-        dispatch(setTotalUsersCount(data.totalCount));
+    dispatch(setToggleFollowingProgress(true, userID))
+    usersAPI.follow(userID)
+      .then((response) => {
+        if (response.data.resultCode === 0) {
+          dispatch(follow(userID))
+        }
+        dispatch(setToggleFollowingProgress(false, userID))
       });
   };
 };
 
-export const unfollowThunk = (currentPage,pageSize) => {
+export const unfollowThunk = (userID) => {
 
   return (dispatch) => {
-    dispatch(setToggleIsFetching(true));
-
-    usersAPI
-      .getUsers(currentPage, pageSize)
-      .then((data) => {
-        dispatch(setToggleIsFetching(false));
-        dispatch(setUsers(data.items));
-        dispatch(setTotalUsersCount(data.totalCount));
+    dispatch(setToggleFollowingProgress(true, userID))
+    usersAPI.unfollow(userID)
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          dispatch(unfollow(userID))
+        }
+        dispatch(setToggleFollowingProgress(false, userID))
       });
   };
 };
