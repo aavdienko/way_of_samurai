@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import authReducer from "./auth-reducers copy";
+import authReducer from "./auth-reducers";
 import dialogsReducer from "./dialogs-reducer";
 import {profileReducer} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
