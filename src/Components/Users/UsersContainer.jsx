@@ -7,7 +7,7 @@ import {
   setTotalUsersCount,
   setToggleIsFetching,
   setToggleFollowingProgress,
-  getUsersThunkCreator,
+  getUsers,
 } from '../../Redux/users-reducers';
 import Users from './Users';
 import { connect } from 'react-redux';
@@ -84,5 +84,5 @@ export default connect(mapStateToProps, {
   unfollow,
   setCurrentPage,
   setToggleFollowingProgress,
-  getUsers: getUsersThunkCreator,
+  getUsers,
 })(UsersContainer);

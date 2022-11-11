@@ -4,6 +4,7 @@ import userPhoto from '../../Assets//User.png';
 import { NavLink } from 'react-router-dom';
 import { useStore } from 'react-redux';
 import axios from 'axios';
+import { usersAPI } from '../../API/api';
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -47,13 +48,7 @@ let Users = (props) => {
                 <button disabled={props.followingInProgress.some(id => id === users.id)}
                   onClick={() => {
                     props.setToggleFollowingProgress(true, users.id)
-                    axios
-                      .delete(
-                        `https://social-network.samuraijs.com/api/1.0/follow/${users.id}`,
-                        {
-                          withCredentials: true,
-                        }
-                      )
+                    usersAPI.unfollow(users.id)
                       .then(response => {
                         if (response.data.resultCode === 0) {
                           props.unfollow(users.id);
@@ -68,14 +63,7 @@ let Users = (props) => {
                 <button disabled={props.followingInProgress.some(id => id === users.id)}
                   onClick={() => {
                     props.setToggleFollowingProgress(true, users.id)
-                    axios
-                      .post(
-                        `https://social-network.samuraijs.com/api/1.0/follow/${users.id}`,
-                        {},
-                        {
-                          withCredentials: true,
-                        }
-                      )
+                    usersAPI.follow(users.id)
                       .then((response) => {
                         if (response.data.resultCode === 0) {
                           props.follow(users.id);

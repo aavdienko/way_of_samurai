@@ -133,7 +133,7 @@ export const setToggleFollowingProgress = (isFetching, userID) => {
   };
 };
 
-export const getUsersThunkCreator = (currentPage,pageSize) => {
+export const getUsers = (currentPage,pageSize) => {
 
   return (dispatch) => {
     dispatch(setToggleIsFetching(true));
@@ -147,4 +147,36 @@ export const getUsersThunkCreator = (currentPage,pageSize) => {
       });
   };
 };
+
+
+export const followThunk = (currentPage,pageSize) => {
+
+  return (dispatch) => {
+    dispatch(setToggleIsFetching(true));
+
+    usersAPI
+      .getUsers(currentPage, pageSize)
+      .then((data) => {
+        dispatch(setToggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+      });
+  };
+};
+
+export const unfollowThunk = (currentPage,pageSize) => {
+
+  return (dispatch) => {
+    dispatch(setToggleIsFetching(true));
+
+    usersAPI
+      .getUsers(currentPage, pageSize)
+      .then((data) => {
+        dispatch(setToggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+      });
+  };
+};
+
 export default usersReducer;
