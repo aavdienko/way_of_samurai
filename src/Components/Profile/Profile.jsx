@@ -4,6 +4,7 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 // import MyPostsContainer from './MyPosts/MyPostsContainer';
 import classes from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import { Navigate } from 'react-router-dom';
 
 const Profile = (props) => {
   
@@ -12,7 +13,7 @@ const Profile = (props) => {
   //   {id: 2, message: 'It is my first post', likesCount: 201},
   //   {id: 3, message: 'Yo', likesCount: 20}
   // ]
-
+  if (!props.isAuth) return <Navigate to={'/login'}/>
   return (
     <div>
       <ProfileInfo profile={props.profile}/>

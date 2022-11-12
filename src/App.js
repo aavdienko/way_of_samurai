@@ -12,6 +12,7 @@ import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
+import Login from './Components/Login/Login';
 
 const App = (props) => {
   // Пернесли в index.js и прокинули через props
@@ -34,16 +35,14 @@ const App = (props) => {
               path="/dialogs/*"
               element={
                 <DialogsContainer
-                // state={props.state.dialogsPage}
-                // dispatch={props.dispatch}
                 />
               }
             />
-            {/* store={props.store} */}
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>
