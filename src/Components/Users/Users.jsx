@@ -50,8 +50,7 @@ let Users = (props) => {
                     (id) => id === users.id
                   )}
                   onClick={() => {
-                    props.unfollow(users.id);
-                  }}
+                    props.unfollowThunk(users.id)}}
                 >
                   Unfollow
                 </button>
@@ -61,7 +60,7 @@ let Users = (props) => {
                     (id) => id === users.id
                   )}
                   onClick={() => {
-                    props.follow(true, users.id);
+                    props.followThunk(users.id)
                   }}
                 >
                   Follow
