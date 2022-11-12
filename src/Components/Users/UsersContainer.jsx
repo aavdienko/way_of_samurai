@@ -78,8 +78,6 @@ let mapStateToProps = (state) => {
 // }; Заменили MDTP на передачу самих каллбэков в Usercontainer через коннект и пропс.
 
 export default connect(mapStateToProps, {
-  follow,
-  unfollow,
   setCurrentPage,
   setToggleFollowingProgress,
   getUsers,

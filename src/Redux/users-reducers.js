@@ -83,14 +83,14 @@ export const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const followSuccess = (userID) => {
+export const follow = (userID) => {
   return {
     type: FOLLOW,
     userID,
   };
 };
 
-export const unfollowSuccess = (userID) => {
+export const unfollow = (userID) => {
   return {
     type: UNFOLLOW,
     userID,
