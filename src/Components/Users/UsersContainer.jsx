@@ -4,7 +4,7 @@ import {
   setToggleFollowingProgress,
   getUsers,
   followThunk,
-  unfollowThunk
+  unfollowThunk,
 } from '../../Redux/users-reducers';
 import Users from './Users';
 import { connect } from 'react-redux';
@@ -12,15 +12,16 @@ import axios from 'axios';
 import Preloader from '../Common/Preloader/Preloader';
 import { usersAPI } from '../../API/api.js';
 import { withAuthRedirect } from '../../HOC/withAuthRedirect';
+import { compose } from 'redux';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
-    this.props.getUsers(pageNumber, this.props.pageSize)
+    this.props.getUsers(pageNumber, this.props.pageSize);
   };
 
   render() {
@@ -51,7 +52,7 @@ let mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress
+    followingInProgress: state.usersPage.followingInProgress,
   };
 };
 
@@ -78,12 +79,23 @@ let mapStateToProps = (state) => {
 //   };
 // }; Заменили MDTP на передачу самих каллбэков в Usercontainer через коннект и пропс.
 
-let withRedirect = withAuthRedirect(UsersContainer)
+// let withRedirect = withAuthRedirect(UsersContainer)
 
-export default connect(mapStateToProps, {
-  setCurrentPage,
-  setToggleFollowingProgress,
-  getUsers,
-  followThunk,
-  unfollowThunk,
-})(withRedirect);
+// export default connect(mapStateToProps, {
+//   setCurrentPage,
+//   setToggleFollowingProgress,
+//   getUsers,
+//   followThunk,
+//   unfollowThunk,
+// })(withRedirect);
+
+export default compose(
+  connect(mapStateToProps, {
+    setCurrentPage,
+    setToggleFollowingProgress,
+    getUsers,
+    followThunk,
+    unfollowThunk,
+  }),
+  withAuthRedirect
+)(UsersContainer);
