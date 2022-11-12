@@ -10,6 +10,7 @@ import {
 import Dialogs from './Dialogs';
 import store from '../../Redux/State';
 import { connect } from 'react-redux';
+import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 
 // const DialogsContainer = () => {
 //   // let dialogsElements = props.state.dialogs.map((dialog) => (
@@ -57,7 +58,7 @@ import { connect } from 'react-redux';
 let mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth
+    // isAuth: state.auth.isAuth
   };
 };
 
@@ -72,6 +73,8 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default DialogsContainer;

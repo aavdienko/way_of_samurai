@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Preloader from '../Common/Preloader/Preloader';
 import { usersAPI } from '../../API/api.js';
+import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -77,10 +78,12 @@ let mapStateToProps = (state) => {
 //   };
 // }; Заменили MDTP на передачу самих каллбэков в Usercontainer через коннект и пропс.
 
+let withRedirect = withAuthRedirect(UsersContainer)
+
 export default connect(mapStateToProps, {
   setCurrentPage,
   setToggleFollowingProgress,
   getUsers,
   followThunk,
   unfollowThunk,
-})(UsersContainer);
+})(withRedirect);
