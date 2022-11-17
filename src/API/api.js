@@ -48,3 +48,10 @@ export const authAPI = {
     return instance.get(`auth/me`)
   }
 }
+
+// export const loginAPI = {
+//   login() {
+//     return instance.put(`auth/login`)
+//   }
+
+// }
