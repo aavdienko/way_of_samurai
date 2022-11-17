@@ -1,50 +1,46 @@
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import React from "react"
-
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 
 const MyPosts = (props) => {
+  let postsElements = props.posts.map((post) => (
+    <Post message={post.message} likesCount={post.likesCount} />
+  ));
 
-  // Пернесли в index.js и прокинули через props
-  // let posts = [
-  //   {id: 1, message: 'Hi, how are you?', likesCount: 10},
-  //   {id: 2, message: 'It is my first post', likesCount: 201},
-  //   {id: 3, message: 'Yo', likesCount: 20}
-  // ]
+  // let newPostElement = React.createRef();
 
-  let postsElements = 
-    props.posts.map( post => <Post message={post.message} likesCount={post.likesCount}/> )
-
-  let newPostElement = React.createRef()
+  let onAddPost = (values) => {
+    props.addPost(values.newPostText);
+  };
   
-  let onAddPost = () => {
-    // let text = newPostElement.current.value; мы перестали послыать текст так как он и так попадает в стейт
-    props.addPost()
-  }
-
-  let onPostChange = () => {
-    let text = newPostElement.current.value;
-    props.updateNewPostText(text)
-  }
-
   return (
     <div className={classes.postsBlock}>
       <h3>My posts</h3>
-      <div>
-        <div>
-          <textarea onChange={onPostChange} ref={ newPostElement } value={props.newPostText}/>
-        </div>
-        <div>
-          <button onClick={ onAddPost }>Add post</button>
-        </div>
-      </div>
+      <AddPostReduxForm onSubmit={onAddPost}/>
       <div className={classes.posts}>
-        { postsElements }
-        {/* <Post message={postData[0].message} likesCount={postData[0].likesCount}/>
-        <Post message={postData[1].message} likesCount={postData[1].likesCount}/> */}
+        {postsElements}
       </div>
     </div>
   );
 };
+
+
+const AddPostForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field name={'newPostText'} component={'textarea'}></Field>
+      </div>
+      <div>
+        <button>Add post</button>
+      </div>
+    </form>
+  );
+};
+
+const AddPostReduxForm = reduxForm({
+  form: 'addPostForm',
+})(AddPostForm);
 
 export default MyPosts;

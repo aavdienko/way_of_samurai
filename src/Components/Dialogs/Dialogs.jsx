@@ -32,8 +32,6 @@ const Dialogs = (props) => {
             placeholder={'Enter your message'}
             name={'newMessageText'}
             component={'textarea'}
-            // onChange={onMessageChange}
-            // value={props.newMessageText}
           ></Field>
         </div>
         <div>
