@@ -8,9 +8,7 @@ import {
 } from '../../Redux/users-reducers';
 import Users from './Users';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Preloader from '../Common/Preloader/Preloader';
-import { usersAPI } from '../../API/api.js';
 import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 import { compose } from 'redux';
 
@@ -39,6 +37,7 @@ class UsersContainer extends React.Component {
           followingInProgress={this.props.followingInProgress}
           followThunk={this.props.followThunk}
           unfollowThunk={this.props.unfollowThunk}
+          isAuth={this.props.isAuth}
         />
       </>
     );
@@ -53,6 +52,7 @@ let mapStateToProps = (state) => {
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     followingInProgress: state.usersPage.followingInProgress,
+    isAuth: state.auth.isAuth
   };
 };
 

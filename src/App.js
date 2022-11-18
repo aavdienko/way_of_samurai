@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
-import Profile from './Components/Profile/Profile';
-import Dialogs from './Components/Dialogs/Dialogs';
 import Settings from './Components/Settings/Settings';
 import News from './Components/News/News';
 import Music from './Components/Music/Music';
@@ -13,16 +10,20 @@ import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Login/Login';
+import { initializeApp } from './Redux/app-reducer'
+import Preloader from './Components/Common/Preloader/Preloader';
+import {connect} from "react-redux";
 
-const App = (props) => {
-  // Пернесли в index.js и прокинули через props
-  // let posts = [
-  //   {id: 1, message: 'Hi, how are you?', likesCount: 10},
-  //   {id: 2, message: 'It is my first post', likesCount: 201},
-  //   {id: 3, message: 'Yo', likesCount: 20}
-  // ]
+class App extends React.Component {
+  componentDidMount() {
+    this.props.initializeApp();
+  }
 
-  return (
+  render() {
+    if (!this.props.initialized) {
+      return <Preloader />;
+    }
+    return (
     <BrowserRouter>
       <div className="app-wraper">
         <HeaderContainer />
@@ -31,13 +32,7 @@ const App = (props) => {
           <Routes>
             <Route path="/profile/:userId" element={<ProfileContainer />} />
             <Route path="/profile/" element={<ProfileContainer />} />
-            <Route
-              path="/dialogs/*"
-              element={
-                <DialogsContainer
-                />
-              }
-            />
+            <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/users" element={<UsersContainer />} />
@@ -47,7 +42,17 @@ const App = (props) => {
         </div>
       </div>
     </BrowserRouter>
-  );
-};
+    )
+  }
+}
 
-export default App;
+let mapStateToProps = (state) => ({
+
+  initialized: state.app.initialized
+
+})
+
+
+export default connect( mapStateToProps, {initializeApp} )( App );
+
+// export default compose(withRouter, connect(null, { getAuthUserData }))(App);
