@@ -3,7 +3,7 @@ import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getAuthUserData } from '../../Redux/auth-reducers';
+import { getAuthUserData, logout } from '../../Redux/auth-reducers';
 import Header from './Header';
 
 
@@ -22,4 +22,4 @@ const mapStateToProps = (state) => ({
   login: state.auth.login,
 });
 
-export default connect(mapStateToProps, { getAuthUserData })(HeaderContainer);
+export default connect(mapStateToProps, { getAuthUserData, logout })(HeaderContainer);
