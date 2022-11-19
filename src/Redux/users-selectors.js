@@ -1,7 +1,13 @@
+import { createSelector } from 'reselect'
 
 export const getUsersSelector = (state) => {
   return state.usersPage.users
 }
+
+export const getUsersSuperSelector = createSelector(getUsersSelector, (users) => {
+  debugger
+  return users.filter(users => true)
+}) // добавили проверку, можно удалить потом.
 
 export const getPageSizeSelector = (state) => {
   return state.usersPage.pageSize

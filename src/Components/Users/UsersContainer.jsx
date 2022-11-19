@@ -11,7 +11,8 @@ import { connect } from 'react-redux';
 import Preloader from '../Common/Preloader/Preloader';
 import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 import { compose } from 'redux';
-import { getCurrentPageSelector, getFollowingInProgressSelector, getIsAuthSelector, getIsFetchingSelector, getPageSizeSelector, getTotalUsersCountSelector, getUsersSelector } from '../../Redux/users-selectors';
+import { getCurrentPageSelector, getFollowingInProgressSelector, getIsAuthSelector, getIsFetchingSelector, getPageSizeSelector, getTotalUsersCountSelector, getUsersSelector, getUsersSuperSelector } from '../../Redux/users-selectors';
+
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -59,7 +60,8 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    users: getUsersSelector(state),
+    // users: getUsersSelector(state), // используем СуперСелектор
+    users: getUsersSuperSelector(state),
     pageSize: getPageSizeSelector(state),
     totalUsersCount: getTotalUsersCountSelector(state),
     currentPage: getCurrentPageSelector(state),
