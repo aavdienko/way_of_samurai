@@ -85,5 +85,4 @@ export const updateUserStatus = (status) => (dispatch) => {
   });
 }
 
-
 export default profileReducer;
