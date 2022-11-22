@@ -133,47 +133,60 @@ export const setToggleFollowingProgress = (isFetching, userID) => {
   };
 };
 
-export const getUsers = (currentPage,pageSize) => {
-
-  return (dispatch) => {
+export const getUsers = (currentPage, pageSize) => {
+  return async (dispatch) => {
     dispatch(setToggleIsFetching(true));
 
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
-      dispatch(setCurrentPage(currentPage));
-      dispatch(setToggleIsFetching(false));
-      dispatch(setUsers(data.items));
-      dispatch(setTotalUsersCount(data.totalCount));
-    });
+    let data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(setCurrentPage(currentPage));
+    dispatch(setToggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
   };
 };
 
+export const followUnfollowThunk = async (dispatch, userID, apiMethod, actionCreator) => {
+    dispatch(setToggleFollowingProgress(true, userID));
+    let response = await apiMethod(userID);
+    if (response.data.resultCode === 0) {
+      dispatch(actionCreator(userID));
+    }
+    dispatch(setToggleFollowingProgress(false, userID));
+  };
 
 export const followThunk = (userID) => {
-
-  return (dispatch) => {
-    dispatch(setToggleFollowingProgress(true, userID))
-    usersAPI.follow(userID)
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          dispatch(follow(userID))
-        }
-        dispatch(setToggleFollowingProgress(false, userID))
-      });
-  };
-};
+  return async (dispatch) => {
+    followUnfollowThunk(dispatch, userID, usersAPI.follow, follow)
+  }
+}
 
 export const unfollowThunk = (userID) => {
+  return async (dispatch) => {
+    followUnfollowThunk(dispatch, userID, usersAPI.unfollow, unfollow)
+  }
+}
 
-  return (dispatch) => {
-    dispatch(setToggleFollowingProgress(true, userID))
-    usersAPI.unfollow(userID)
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          dispatch(unfollow(userID))
-        }
-        dispatch(setToggleFollowingProgress(false, userID))
-      });
-  };
-};
 
+// Refactoring 90 Lesson.
+// export const followThunk = (userID) => {
+//   return async (dispatch) => {
+//     dispatch(setToggleFollowingProgress(true, userID));
+//     let response = await usersAPI.follow(userID);
+//     if (response.data.resultCode === 0) {
+//       dispatch(follow(userID));
+//     }
+//     dispatch(setToggleFollowingProgress(false, userID));
+//   };
+// };
+
+// export const unfollowThunk = (userID) => {
+//   return async (dispatch) => {
+//     dispatch(setToggleFollowingProgress(true, userID));
+//     let response = await usersAPI.unfollow(userID);
+//     if (response.data.resultCode === 0) {
+//       dispatch(unfollow(userID));
+//     }
+//     dispatch(setToggleFollowingProgress(false, userID));
+//   };
+// };
 export default usersReducer;

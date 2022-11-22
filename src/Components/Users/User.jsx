@@ -2,45 +2,40 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from '../../Assets//User.png';
 import { NavLink, Navigate } from 'react-router-dom';
-import Paginator from '../Common/Paginator/Paginator';
 
-
-let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged,...props}) => {
-
+let User = ({user,...props}) => {
   return (
     <div>
-    <Paginator currentPage={currentPage} totalUsersCount={totalUsersCount} pageSize={pageSize} onPageChanged={onPageChanged} />
-      {props.users.map((users) => (
-        <div key={users.id}>
           <span>
             <div>
-              <NavLink to={'./../profile/' + users.id}>
+              <NavLink to={'./../profile/' + user.id}>
                 <img
                   src={
-                    users.photos.small != null ? users.photos.small : userPhoto
+                    user.photos.small != null ? user.photos.small : userPhoto
                   }
                   className={styles.userPhoto}
                 />
               </NavLink>
             </div>
             <div>
-              {users.followed ? (
+              {user.followed ? (
                 <button
                   disabled={props.followingInProgress.some(
-                    (id) => id === users.id
+                    (id) => id === user.id
                   )}
                   onClick={() => {
-                    props.unfollowThunk(users.id)}}
+                    props.unfollowThunk(user.id);
+                  }}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button
                   disabled={props.followingInProgress.some(
-                    (id) => id === users.id
+                    (id) => id === user.id
                   )}
                   onClick={() => {
-                    props.followThunk(users.id)
+                    props.followThunk(user.id);
                   }}
                 >
                   Follow
@@ -50,18 +45,16 @@ let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged,...props}) =
           </span>
           <span>
             <span>
-              <div>{users.name}</div>
-              <div>{users.status}</div>
+              <div>{user.name}</div>
+              <div>{user.status}</div>
             </span>
             <span>
-              <div>{'users.location.city'}</div>
-              <div>{'users.location.country'}</div>
+              <div>{'user.location.city'}</div>
+              <div>{'user.location.country'}</div>
             </span>
           </span>
         </div>
-      ))}
-    </div>
   );
-};
+}
 
-export default Users;
+export default User;
