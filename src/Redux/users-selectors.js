@@ -5,7 +5,6 @@ export const getUsersSelector = (state) => {
 }
 
 export const getUsersSuperSelector = createSelector(getUsersSelector, (users) => {
-  debugger
   return users.filter(users => true)
 }) // добавили проверку, можно удалить потом.
 
