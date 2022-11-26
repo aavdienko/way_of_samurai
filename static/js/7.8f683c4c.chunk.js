@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmy_app=self.webpackChunkmy_app||[]).push([[7],{5007:function(n,e,u){u.r(e),u.d(e,{default:function(){return t}});var r=u(184),t=function(){return(0,r.jsx)("div",{children:"News"})}}}]);
+//# sourceMappingURL=7.8f683c4c.chunk.js.map
