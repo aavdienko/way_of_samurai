@@ -4,6 +4,24 @@
   border-radius: 30px;
 }
 
-.selectedPage {
-  font-weight: bold;
+.paginator {
+  margin: 10px;
 }
+
+.pageNumber {
+  padding: 7px;
+  border: 1px solid grey;
+  font-weight: normal;
+}
+
+.pageNumber.selectedPage {
+  font-weight: bold;
+  border-color: black;
+  color: black;
+}
+
+/*.selectedPage {*/
+/*   padding: 2px;*/
+/*   font-weight: bold;*/
+/*   color: #d74343;*/
+/*}*/
