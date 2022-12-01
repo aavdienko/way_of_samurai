@@ -10,8 +10,8 @@ const ProfileInfo = (props) => {
   }
 
   const onMainPhotoSelected = (event) => {
-    if (event.taget.files.length) {
-      props.savePhoto(event.taget.files[0])
+    if (event.target.files.length) {
+      props.savePhoto(event.target.files[0])
     }// если длинна массива файла больше нуля (есть)
 
   }

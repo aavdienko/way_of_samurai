@@ -27,12 +27,10 @@ class ProfileContainer extends React.Component {
 
 
   componentDidMount() {
-    debugger
     this.refreshProfile()
   }
 
   componentDidUpdate(prevProps, prevState ,snapshot) {
-    debugger
     if (this.props.match.params.userId != prevProps.match.params.userId){
       this.refreshProfile()
     }
