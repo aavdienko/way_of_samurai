@@ -1,10 +1,5 @@
-import store from '../../Redux/State';
-import MyPosts from './MyPosts/MyPosts';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-// import MyPostsContainer from './MyPosts/MyPostsContainer';
-import classes from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import { Navigate } from 'react-router-dom';
 
 const Profile = (props) => {
   
@@ -16,15 +11,15 @@ const Profile = (props) => {
 
   return (
     <div>
-      <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus} savePhoto={props.savePhoto}/>
+      <ProfileInfo 
+        isOwner={props.isOwner} 
+        profile={props.profile} 
+        status={props.status} 
+        updateUserStatus={props.updateUserStatus} 
+        savePhoto={props.savePhoto}
+        saveProfile={props.saveProfile}/>
+
       <MyPostsContainer />
-      {/* store={props.store} */}
-      {/* <MyPosts
-        // store={props.store} 
-        posts={props.profilePage.posts} 
-        newPostText={props.profilePage.newPostText} 
-        dispatch={props.dispatch}
-        /> */}
     </div>
   );
 };
