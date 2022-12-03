@@ -13,3 +13,7 @@
   grid-area: c;
   background-color: whitesmoke;
 }
+
+.notFoundBlock {
+  padding: 30px;
+}
